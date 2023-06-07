@@ -1,0 +1,89 @@
+{% extends "layouts/main.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    .custom-card {
+        background: linear-gradient(to right, #613523fa, #3b1c3bd3, #613523fa);
+        color: white;
+    }
+    .border-card {
+        border-width: 2px; /* Ajusta el grosor del borde según tus necesidades */
+        border-style: solid;
+    }
+    .custom-button {
+        background-color: #613523fa; /* Cambia el color de fondo según tus necesidades */
+        color: #ffffff; /* Cambia el color del texto según tus necesidades */
+        /* Otros estilos de tu elección */
+    }
+</style>
+<form class="card custom-card p-2" method="POST" action="/publish/">
+    <h1>Deja tu comentario sobre nosotros</h1>
+    {% csrf_token %}
+    <div class="form-group my-3 ">
+        <textarea class="form-control form-control-sm" placeholder="Escribe un comentario" name="text">{% if post is not None %}{{post.text}}{% endif %}</textarea>
+    </div>
+    <div class="text">
+        <button class="btn btn-light" type="submit">Publicar</button>
+    </div>
+</form>
+<br/>
+{% if posts == None %}
+<h1>No hay publicaciones</h1>
+{% endif %}
+
+{% for p in posts %}
+<div class="card border-card p-3 ">
+    <div class="row d-flex align-items-center justify-content-center">
+        <img class="col-2"src="{% static 'images/models.png' %}" alt="mi imagen" style="border-radius: 50%; width: 100px; height: 80px;">
+        <h4 class="col-3">{{p.user}} comentó: </h4>
+        <h5 class="col-7">{{p.text}}</h5>
+    </div>
+    <br/>
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-1">
+            <form method="POST" action="/megusta/">
+                {% csrf_token %}
+                <input type="hidden" value="{{p.id}}" name="megusta">
+                <button class="btn btn-primary custom-button" type="submit">❤️</button>
+                
+            </form>
+        </div>
+        <div class="col-11">
+            <span><b>Le gusta a:</b> </span>
+            {% for m in p.like_set.all %}
+            <span>{{m.user}} </span>
+
+            {% endfor %}
+        </div>
+    </div>
+    <p>{{p.created}}</p>
+    <br/>
+    <div class="">
+        <div class="px-3">
+            {% if request.user.is_authenticated %}
+            <form method="POST" action="/comentario/">
+                {% csrf_token %}
+                <input type="hidden" value="{{p.id}}" name="post">
+                <div class="form-group">
+                    <textarea class="form-control" name="text" placeholder="Comenta la publicación anterior"></textarea>
+                </div>
+                <button class="btn btn-secondary" type="submit">Enviar comentario</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+    <br/>
+    <h5>Comentarios:</h5>
+    {% for c in p.comment_set.all %}
+        <div class="p-3">
+            <div class="card px-3">
+                <p><b>{{c.user}}</b>: {{ c.text }}</p>
+                <p>{{c.created}} </p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "layouts/main.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+    .custom-card {
+        background: linear-gradient(to right, #613523fa, #3b1c3bd3, #613523fa);
+        color: white;
+    }
+</style>
+
+<form class="card custom-card p-5" method="POST" action="">
+    <div class="d-flex align-items-center justify-content-center">
+        <img src="{% static 'images/pagos.png' %}" alt="mi imagen" style=" width: 200px; height: 150px;">
+        <h1 class="text-center">Solicitud de pago</h1>
+    </div>
+    {% csrf_token %}
+    <div class="form-group my-3">
+        <label>Banco</label>
+        <input type="text" class="form-control" name="bank" placeholder="Escriba su banco">
+    </div>
+
+    <div class="form-group my-3">
+        <label>Número de cuenta</label>
+        <input type="number" class="form-control" name="account_number" placeholder="Escriba número de cuenta">
+    </div>
+
+    <div class="form-group my-3">
+        <label>Página</label>
+        <input type="text" class="form-control" name="page" placeholder="Página">
+    </div>
+
+    <div class="form-group my-3">
+        <label>Monto</label>
+        <input type="number" class="form-control" name="amount" placeholder="Monto total">
+    </div>
+    <div class="text-center">
+
+        <button class="btn btn-light" type="submit">Enviar</button>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "layouts/main.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+    .custom-card {
+        background: linear-gradient(to right, #613523fa, #3b1c3bd3, #613523fa);
+        color: white;
+    }
+</style>
+
+<form class="card custom-card p-5" method="POST" action="">
+    <div class="d-flex align-items-center justify-content-center">
+        <img src="{% static 'images/registro.png' %}" alt="mi imagen" style=" width: 200px; height: 150px;">
+        <h1 class="text-center">Registro</h1>
+    </div>
+    {% csrf_token %}
+    <div class="form-group my-3">
+        <label>Usuario</label>
+        <input type="text" class="form-control" name="username" placeholder="Nombre de usuario">
+    </div>
+
+    <div class="form-group my-3">
+        <label>email</label>
+        <input type="email" class="form-control" name="email" placeholder="Email">
+    </div>
+
+    <div class="form-group my-3">
+        <label>Nombre</label>
+        <input type="text" class="form-control" name="first_name" placeholder="Nombre">
+    </div>
+
+    <div class="form-group my-3">
+        <label>Apellido</label>
+        <input type="text" class="form-control" name="last_name" placeholder="Apellido">
+    </div>
+
+    <div class="form-group my-3">
+        <label>Contraseña</label>
+        <input type="password" class="form-control" name="password" placeholder="Contraseña">
+    </div>
+
+    <div class="form-group my-3">
+        <label>Confirmar contraseña</label>
+        <input type="password" class="form-control" name="confirm_password" placeholder="Confirmar contraseña">
+    </div>
+    <div class="text-center">
+
+        <button class="btn btn-light" type="submit">Registro</button>
+    </div>
+</form>
+{% endblock %}

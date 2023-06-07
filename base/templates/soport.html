@@ -1,0 +1,41 @@
+{% extends "layouts/main.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    .custom-card {
+        background: linear-gradient(to right, #613523fa, #3b1c3bd3, #613523fa);
+        color: white;
+    }
+</style>
+<br/>
+<label><b>Envíanos un mensaje y uno de nuestros operadores se pondrá en contacto contigo</b></label>
+<br/>
+<br/>
+<div class="card p-3 row shadow-lg custom-card text-light">
+    <h1 class="text-center">Soporte</h1>
+    <div class="row col-12">
+        <div class="col-4">
+            <img src="{% static 'images/soporte.png' %}" alt="mi imagen" style=" width: 200px; height: 150px;">
+        </div>
+        <div class="col-7">
+            <form method="POST" action="">
+                {% csrf_token %}
+        
+                <div class="form-group my-3">
+                    <label>Email</label>
+                    <input type="email" class="form-control" name="email" placeholder="Email">
+                </div>
+        
+                <div class="form-group my-3">
+                    <label>Sugerencia</label>
+                    <input type="text" class="form-control" name="sugerencia" placeholder="sugerencia">
+                </div>
+                <button class="btn btn-light" type="submit">Enviar</button>
+            </form>
+        </div>
+    </div>
+    
+</div>
+
+{% endblock %}

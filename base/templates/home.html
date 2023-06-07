@@ -1,0 +1,21 @@
+{% extends "layouts/main.html" %}
+{% block content %}
+<style>
+    .custom-card {
+        background: linear-gradient(to right, #613523fa, #3b1c3bd3, #613523fa);
+        color: white;
+        font-size: 25px;
+        text-align: center;
+    }
+</style>
+
+<div class="text-center">
+    <h1>Bienvenido {{user}} a la página de OlimpoWeb</h1>
+</div>
+
+<div class="row d-flex align-items-center justify-content-center py-5 ">
+    <div class="col-3 card m-2 custom-card">¿Quieres ganar más dinero con nosotros y posicionarte adecuadamente?</div>
+    <div class="col-3 card m-3 custom-card">¿Trabajas en un studio fisico y se te quedan con aproximadamente la mitad de tus ganancias y además, no te brindan ya ayuda porque tienes buena experiencia?</div>
+    <div class="col-3 card m-3 custom-card">Tienes tu computadora, camara y un espacio para trabajar...</div>
+</div>
+{% endblock %}

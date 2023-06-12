@@ -35,9 +35,19 @@
 {% for p in posts %}
 <div class="card border-card p-3 ">
     <div class="row d-flex align-items-center justify-content-center">
-        <img class="col-2"src="{% static 'images/models.png' %}" alt="mi imagen" style="border-radius: 50%; width: 100px; height: 80px;">
-        <h4 class="col-3">{{p.user}} comentó: </h4>
-        <h5 class="col-7">{{p.text}}</h5>
+        <img class="col-lg-1 col-6"src="{% static 'images/models.png' %}" alt="mi imagen" style="border-radius: 50%; width: 100px; height: 80px;">
+        <h4 class="col-lg-3 col-6">{{p.user}} comentó: </h4>
+        <h5 class="col-lg-6 col-12">{{p.text}}</h5>
+        <!-- <div class="col-lg-1">
+            <form method="POST" action="/eliminar/">
+                {% csrf_token %}
+                {% if request.user.is_superuser%}
+                <button class="btn btn-secondary" type="submit">Eliminar</button>
+                {% endif %}
+            </form>
+        </div> -->
+
+        
     </div>
     <br/>
     <div class="row d-flex align-items-center justify-content-center">
@@ -46,7 +56,6 @@
                 {% csrf_token %}
                 <input type="hidden" value="{{p.id}}" name="megusta">
                 <button class="btn btn-primary custom-button" type="submit">❤️</button>
-                
             </form>
         </div>
         <div class="col-11">
@@ -61,7 +70,7 @@
     <br/>
     <div class="">
         <div class="px-3">
-            {% if request.user.is_authenticated %}
+            {% if request.user.is_superuser %}
             <form method="POST" action="/comentario/">
                 {% csrf_token %}
                 <input type="hidden" value="{{p.id}}" name="post">

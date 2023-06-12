@@ -52,6 +52,7 @@ def logout_page(request):
 def publications(request):
     usuario = User.objects.get(username=request.user)
     posts= Post.objects.all().order_by('-created')
+
     if len(posts) == 0: posts = None
     data = {'usuario':usuario, 'posts': posts}   
     return render (request,'comment.html', data)
@@ -103,3 +104,10 @@ def pay(request):
             return redirect('/')  # Redirige a la página 'pay.html'
     
     return render(request, 'pay.html')
+
+def eliminar(request):
+    usuario = User.objects.get(username=request.user)
+    delete= Comment.objects.get(user=usuario)
+    delete.delete()
+
+    return redirect('/comment/')
